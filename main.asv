@@ -18,14 +18,14 @@ K = 10; % constante do K-fold
 ACERTOS = 0; % quantidade de acertos do k-fold
 
 %% Separação dos dados da base entre classes
-X1 = data(1:59,2:13).';
-X2 = data(60:130,2:13).';
-X3 = data(131:178,2:13).';
+X1 = data(1:59,2:13);
+X2 = data(60:130,2:13);
+X3 = data(131:178,2:13);
 
 %% Separação dos dados para aplicação do método one-versus-all
-X12 = [X1 X2];
-X13 = [X1 X3];
-X23 = [X2 X3];
+X12 = [X1;X2];
+X13 = [X1;X3];
+X23 = [X2;X3];
 
 
 %% Cálculo da quantidade de amostras de cada classe
@@ -38,27 +38,27 @@ N23 = N2 + N3; % tamanho das amostras da classe 23
 
 %% Cálculo dos vetores média dos atributos para cada classe
 % 1 vs 2,3
-u1 = mean(X1,2);
-u23 = mean(X23,2);
+u1 = mean(X1);
+u23 = mean(X23);
 U1_23 = (u1 + u23)/2;
 
 % 2 vs 1,3
-u2 = mean(X2,2);
-u13 = mean(X13,2);
+u2 = mean(X2);
+u13 = mean(X13);
 U2_13 = (u2 + u13)/2;
 
 % 3 vs 1,2
-u3 = mean(X3,2);
-u12 = mean(X12,2);
+u3 = mean(X3);
+u12 = mean(X12);
 U3_12 = (u3 + u12)/2;
 
 %% Cálculo das matrizes de covariância para cada classe
-S1 = cov(X1.');
-S2 = cov(X2.');
-S3 = cov(X3.');
-S12 = cov(X12.');
-S13 = cov(X13.');
-S23 = cov(X23.');
+S1 = cov(X1);
+S2 = cov(X2);
+S3 = cov(X3);
+S12 = cov(X12);
+S13 = cov(X13);
+S23 = cov(X23);
 
 %% Cálculo das matrizes de dispersão intra-classe multiclasse
 % 1 vs 2,3
@@ -108,6 +108,6 @@ y23 = w1_23.'*X23;
 y2 = w2_13.'*X2;
 y13 = w2_13.'*X13;
 
-% 3 vs 1,2
+% 3 vs 2,3
 y3 = w3_12.'*X3;
 y12 = w3_12.'*X12;
